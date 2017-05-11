@@ -1,0 +1,238 @@
+<!--<html>
+  <head> 
+    <title>vue</title>
+    <meta charset="utf-8">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   
+  </head>
+  
+  <body>
+    <div id="root">
+      <input type="text" v-model="newTodo" v-on:keyup.enter="addTodo()">
+      <button v-on:click="addTodo()">add</button>
+        {{ newTodo }}
+      <ul>
+        <h1>All</h1>
+        <li v-for="todo in list">
+          <input type="checkbox" v-model="todo.done">
+          {{ todo.content }}
+          <button @click="removeTodo(todo)"> no, I am not.</button>
+        </li>
+        <h1>Active</h1>
+        <li v-for="todo in active">
+          <input type="checkbox" v-model="todo.done">
+          {{ todo.content }}
+          <button @click="removeTodo(todo)"> no, I am not.</button>
+        </li>
+        <h1>Compeleted</h1>
+        <li v-for="todo in compeleted">
+          <input type="checkbox" v-model="todo.done">
+          {{ todo.content }}
+          <button @click="removeTodo(todo)"> no, I am not.</button>
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <script>
+      new Vue({
+        el: '#root',//element
+
+        data: {
+         newTodo: '',
+         list:[
+           {content:'食', done: false },
+           {content:'色', done: false },
+           {content:'性', done: false }
+          ]
+        },
+        
+        methods:{
+          addTodo: function(){
+            let add = {content: this.newTodo, done: flase}
+              this.list.push(add);
+              this.newTodo = '';
+          },
+          removeTodo: function(remove){
+              let index = this.list.indexOf(remove);
+              this.list.splice(index, 1);
+          }
+        },
+
+        computed:{
+          all: function(){
+            return this.list;
+          },
+          active: function(){
+            return this.list.filter(function(val){
+              return val.done == false;
+            })
+          },
+          compeleted: function(){
+            return this.list.filter(function(val){
+            return val.done == true;
+            })
+          }
+        },
+        
+        // watch:{
+        //     newTodo: function(newVal){
+        //       console.log(oldVal);
+        //       console.log(newVal);
+        //     }
+        // }
+      })
+    </script> 
+  </body>
+</html>-->
+
+
+<html>
+<head>
+  <title>A man is...</title>
+  <meta charset="utf8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+  <style>
+    .row {
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="input-group input-group-lg">
+            <input
+              type="text"
+              v-model="newTodo"
+              @keyup.enter="addTodo()"
+              class="form-control"
+              placeholder="A man is...?">
+            <span class="input-group-btn">
+              <button
+              @click="addTodo()"
+              class="btn btn-secondary"
+              type="button">Add</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+              class="nav-link"
+              :class="{active: visibility == 'all'}"
+              href="#all">All</a>
+            </li>
+            <li class="nav-item">
+              <a
+              class="nav-link"
+              :class="{active: visibility == 'active'}"
+              href="#active">Active</a>
+            </li>
+            <li class="nav-item">
+              <a
+              class="nav-link"
+              :class="{active: visibility == 'completed'}"
+              href="#completed">Completed</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Done</th>
+                <th>Content</th>
+                <th>No,he's not.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="todo in filterTodo">
+                <td><input type="checkbox" v-model="todo.done"></td>
+                <td>{{todo.content}}</td>
+                <td><button class="btn btn-danger" @click="removeTodo(todo)">No,he's not.</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+  <script>
+    var filters = {
+      all(todos) {
+        return todos;
+      },
+      active(todos) {
+        return todos.filter(function(todo) {
+          return !todo.done;
+        })
+      },
+      completed(todos) {
+        return todos.filter(function(todo) {
+          return todo.done;
+        })
+      }
+    }
+    var app = new Vue({
+      el: '#root',
+      data: {
+        newTodo: '',
+        todos: [
+          {content: '食', done: true},
+          {content: '色', done: false},
+          {content: '性', done: false}
+          ],
+        visibility: 'all'
+      },
+      methods: {
+        addTodo() {
+          let add = {
+            content: this.newTodo,
+            done: false
+          }
+          this.todos.push(add);
+          this.newTodo = '';
+        },
+        removeTodo(remove) {
+          let index = this.todos.indexOf(remove);
+          this.todos.splice(index, 1);
+        }
+      },
+      computed: {
+        filterTodo() {
+          return filters[this.visibility](this.todos);
+        },
+      }
+    })
+    function onHashChange() {
+      let visibility = window.location.hash.replace(/#/, '');
+      if (filters[visibility]) {
+        app.visibility = visibility; // 在上課時後者的 visibility 是使用 hash 
+      } else {
+        //取得 # 之後的東西，交給 filterTodo
+        window.location.hash = ''; 
+        app.visibility = 'all';
+      }
+    }
+    window.addEventListener('hashchange', onHashChange)
+  </script>
+</body>
+</html>
