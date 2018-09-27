@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>A man is...</title>
+  <title>To do list</title>
   <meta charset="utf8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
@@ -21,7 +21,7 @@
               v-model="newTodo"
               @keyup.enter="addTodo()"
               class="form-control"
-              placeholder="A man is...?">
+              placeholder="To do list?">
             <span class="input-group-btn">
               <button
               @click="addTodo()"
@@ -64,7 +64,7 @@
               <tr>
                 <th>Done</th>
                 <th>Content</th>
-                <th>No,he's not.</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -106,9 +106,9 @@
       data: {
         newTodo: '',
         todos: [
-          {content: '食', done: true},
-          {content: '色', done: false},
-          {content: '，性也', done: false}
+          {content: '工作', done: true},
+          {content: '工作', done: false},
+          {content: '，工作', done: false}
           ],
         visibility: 'all'
       },
