@@ -71,7 +71,7 @@
               <tr v-for="todo in filterTodo">
                 <td><input type="checkbox" v-model="todo.done"></td>
                 <td>{{todo.content}}</td>
-                <td><button class="btn btn-danger" @click="removeTodo(todo)">No,he's not.</button></td>
+                <td><button class="btn btn-danger" @click="removeTodo(todo)">Delete it.</button></td>
               </tr>
             </tbody>
           </table>
